@@ -155,7 +155,11 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                         }
 
                         // set the view value and render it
-                        ngModelController.$setViewValue(ionAutocompleteController.selectedItems);
+                        if (ionAutocompleteController.maxSelectedItems == "1") {
+                            ngModelController.$setViewValue(ionAutocompleteController.selectedItems[0]);
+                        } else {
+                            ngModelController.$setViewValue(ionAutocompleteController.selectedItems); 
+                        }
                         ngModelController.$render();
 
                         // hide the container and the ionic backdrop if it is a single select to enhance usability

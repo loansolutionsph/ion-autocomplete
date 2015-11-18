@@ -1,7 +1,7 @@
 /*
- * ion-autocomplete 0.3.0
- * Copyright 2015 Danny Povolotski
- * Copyright modifications 2015 Guy Brand
+ * ion-autocomplete 0.3.1
+ * Copyright 2015 Danny Povolotski 
+ * Copyright modifications 2015 Guy Brand 
  * https://github.com/guylabs/ion-autocomplete
  */
 (function() {
@@ -165,7 +165,11 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                         }
 
                         // set the view value and render it
-                        ngModelController.$setViewValue(ionAutocompleteController.selectedItems);
+                        if (ionAutocompleteController.maxSelectedItems == "1") {
+                            ngModelController.$setViewValue(ionAutocompleteController.selectedItems[0]);
+                        } else {
+                            ngModelController.$setViewValue(ionAutocompleteController.selectedItems); 
+                        }
                         ngModelController.$render();
 
                         // hide the container and the ionic backdrop if it is a single select to enhance usability
@@ -233,8 +237,7 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                                 queryObject = {
                                     query: query,
                                     isInitializing: isInitializing,
-                                    componentId: ionAutocompleteController.componentId
-                                }
+                                    componentId: ionAutocompleteController.componentId}
                             }
 
                             // convert the given function to a $q promise to support promises too
